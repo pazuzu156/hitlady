@@ -1,4 +1,6 @@
-namespace hitlady.Data {
+using System.Collections.Generic;
+
+namespace Hitlady.Data {
   internal struct ConfigYml {
     public string Token { get; set; }
     public string Prefix { get; set; }
@@ -6,6 +8,7 @@ namespace hitlady.Data {
     public Channels Channels { get; set; }
     public Database Database { get; set; }
     public Logging Logging { get; set; }
+    public List<string> Commands { get; set; }
   }
 
   internal struct Channels {

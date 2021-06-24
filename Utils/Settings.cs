@@ -1,11 +1,12 @@
-using hitlady.Data;
+using Hitlady.Data;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace hitlady.Utils {
+namespace Hitlady.Utils {
   internal class Settings {
     private string _settingsFile = "config.yml";
     public ConfigYml Config;
@@ -75,6 +76,9 @@ namespace hitlady.Utils {
           Logging = new Logging {
             UseInternalLogHandler = true,
             LogLevel = "debug"
+          },
+          Commands = new List<String>() {
+            "Hitlady.Commands.AboutCommand"
           }
         };
 

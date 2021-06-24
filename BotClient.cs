@@ -5,7 +5,7 @@ using DSharpPlus.Entities;
 using hitlady.Data;
 using hitlady.Utils;
 
-namespace hitlady {
+namespace Hitlady {
   class BotClient {
     private ConfigYml _config;
     public BotClient() {
@@ -16,28 +16,28 @@ namespace hitlady {
     }
 
     private async Task MainAsync() {
-      var discord = new DiscordClient(new DiscordConfiguration() {
-        Token = _config.Token,
-        TokenType = TokenType.Bot,
-        Intents = DiscordIntents.AllUnprivileged | DiscordIntents.GuildMembers
-      });
+      // var discord = new DiscordClient(new DiscordConfiguration() {
+      //   Token = _config.Token,
+      //   TokenType = TokenType.Bot,
+      //   Intents = DiscordIntents.AllUnprivileged | DiscordIntents.GuildMembers
+      // });
 
-      discord.Ready += (s, e) => {
-        Console.WriteLine("Bot is ready for use!");
+      // discord.Ready += (s, e) => {
+      //   Console.WriteLine("Bot is ready for use!");
 
-        return Task.CompletedTask;
-      };
+      //   return Task.CompletedTask;
+      // };
 
-      discord.GuildMemberAdded += async (s, e) => {
-        await Send(s, $"{GetUser(e.Member)} has joined the server. Welcome!");
-      };
+      // discord.GuildMemberAdded += async (s, e) => {
+      //   await Send(s, $"{GetUser(e.Member)} has joined the server. Welcome!");
+      // };
 
-      discord.GuildMemberRemoved += async (s, e) => {
-        await Send(s, $"{GetUser(e.Member)} left, maybe they'll be back?");
-      };
+      // discord.GuildMemberRemoved += async (s, e) => {
+      //   await Send(s, $"{GetUser(e.Member)} left, maybe they'll be back?");
+      // };
 
-      await discord.ConnectAsync();
-      await Task.Delay(-1);
+      // await discord.ConnectAsync();
+      // await Task.Delay(-1);
     }
 
     private string GetUser(DiscordMember member) {
