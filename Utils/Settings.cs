@@ -62,7 +62,9 @@ namespace hitlady.Utils {
           Token = token,
           Prefix = (string.IsNullOrEmpty(prefix)) ? "-" : prefix,
           PrefixSpace = false,
-          BotSpamChannel = bsu,
+          Channels = new Channels {
+            BotSpam = bsu
+          },
           Database = new Database {
             Hostname = (string.IsNullOrEmpty(dbh)) ? "localhost" : dbh,
             Port = (dbpi == 0) ? 3306 : dbpi,

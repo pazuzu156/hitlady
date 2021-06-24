@@ -2,25 +2,26 @@
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.Entities;
-
+using hitlady.Data;
 using hitlady.Utils;
 
 namespace hitlady {
   class Program {
-    private Settings _settings;
+    private ConfigYml _config;
     static void Main(string[] args) {
       new Program();
     }
 
     public Program() {
-      _settings = Settings.GetInstance();
+      var s = Settings.GetInstance();
+      _config = s.Config;
 
       MainAsync().GetAwaiter().GetResult();
     }
 
     private async Task MainAsync() {
       var discord = new DiscordClient(new DiscordConfiguration() {
-        Token = _settings.Config.Token,
+        Token = _config.Token,
         TokenType = TokenType.Bot,
         Intents = DiscordIntents.AllUnprivileged | DiscordIntents.GuildMembers
       });
@@ -50,7 +51,7 @@ namespace hitlady {
     }
 
     private async Task Send(DiscordClient client, string message) {
-      var channel = await client.GetChannelAsync(_settings.Config.BotSpamChannel);
+      var channel = await client.GetChannelAsync(_config.Channels.BotSpam);
       await channel.SendMessageAsync(message);
     }
   }

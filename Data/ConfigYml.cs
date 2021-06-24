@@ -3,9 +3,13 @@ namespace hitlady.Data {
     public string Token { get; set; }
     public string Prefix { get; set; }
     public bool PrefixSpace { get; set; }
-    public ulong BotSpamChannel { get; set; }
+    public Channels Channels { get; set; }
     public Database Database { get; set; }
     public Logging Logging { get; set; }
+  }
+
+  internal struct Channels {
+    public ulong BotSpam { get; set; }
   }
 
   internal struct Database {
