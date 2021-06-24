@@ -9,7 +9,7 @@
     <Description>A Discord bot built using DSharpPlus</Description>
     <Copyright>2021 Kaleb Klein</Copyright>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp5.0</TargetFramework>
     <RuntimeIdentifiers>win10;linux-x64</RuntimeIdentifiers>
     <StartupObject>hitlady.Program</StartupObject>
   </PropertyGroup>
