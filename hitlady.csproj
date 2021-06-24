@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <VersionPrefix>0.0.1</VersionPrefix>
+    <VersionSuffix>beta</VersionSuffix>
+    <Authors>Kaleb Klein</Authors>
+    <Company>Kaleb Klein</Company>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <AssemblyTitle>hitlady</AssemblyTitle>
+    <Description>A Discord bot built using DSharpPlus</Description>
+    <Copyright>2021 Kaleb Klein</Copyright>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RuntimeIdentifiers>win10;linux-x64</RuntimeIdentifiers>
+    <StartupObject>hitlady.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>hitlady.ico</ApplicationIcon>
+	</PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="DSharpPlus" Version="4.0.1" />
+    <PackageReference Include="YamlDotNet" Version="11.2.0" />
+  </ItemGroup>
+</Project>
