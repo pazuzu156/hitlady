@@ -3,8 +3,7 @@ using System.Collections.Generic;
 namespace Hitlady.Data {
   internal struct ConfigYml {
     public string Token { get; set; }
-    public string Prefix { get; set; }
-    public bool PrefixSpace { get; set; }
+    public List<string> Prefixes { get; set; }
     public Channels Channels { get; set; }
     public Database Database { get; set; }
     public int LogLevel { get; set; }
