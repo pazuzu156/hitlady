@@ -58,7 +58,7 @@ namespace Hitlady {
       _commands.CommandExecuted += bot.Commands_CommandExecuted;
 
       // all command modules should be registered here
-      _commands.RegisterCommands<AboutModule>();
+      // _commands.RegisterCommands<AboutModule>();
 
       await _client.ConnectAsync();
       await Task.Delay(-1);
