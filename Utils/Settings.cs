@@ -73,10 +73,7 @@ namespace Hitlady.Utils {
             Password = (string.IsNullOrEmpty(dbpw)) ? string.Empty : dbpw,
             Name = (string.IsNullOrEmpty(dbn)) ? "hitlady" : dbn
           },
-          Logging = new Logging {
-            UseInternalLogHandler = true,
-            LogLevel = "debug"
-          },
+          LogLevel = 2,
           Commands = new List<String>() {
             "Hitlady.Commands.AboutCommand"
           }

@@ -7,7 +7,7 @@ namespace Hitlady.Data {
     public bool PrefixSpace { get; set; }
     public Channels Channels { get; set; }
     public Database Database { get; set; }
-    public Logging Logging { get; set; }
+    public int LogLevel { get; set; }
     public List<string> Commands { get; set; }
   }
 
@@ -21,10 +21,5 @@ namespace Hitlady.Data {
     public string Username { get; set; }
     public string Password { get; set; }
     public string Name { get; set; }
-  }
-
-  internal struct Logging {
-    public bool UseInternalLogHandler { get; set; }
-    public string LogLevel { get; set; }
   }
 }
