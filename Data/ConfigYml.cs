@@ -1,11 +1,12 @@
-namespace hitlady.Data {
+using System.Collections.Generic;
+
+namespace Hitlady.Data {
   internal struct ConfigYml {
     public string Token { get; set; }
-    public string Prefix { get; set; }
-    public bool PrefixSpace { get; set; }
+    public List<string> Prefixes { get; set; }
     public Channels Channels { get; set; }
     public Database Database { get; set; }
-    public Logging Logging { get; set; }
+    public int LogLevel { get; set; }
   }
 
   internal struct Channels {
@@ -18,10 +19,5 @@ namespace hitlady.Data {
     public string Username { get; set; }
     public string Password { get; set; }
     public string Name { get; set; }
-  }
-
-  internal struct Logging {
-    public bool UseInternalLogHandler { get; set; }
-    public string LogLevel { get; set; }
   }
 }
