@@ -7,7 +7,6 @@ namespace Hitlady.Data {
     public Channels Channels { get; set; }
     public Database Database { get; set; }
     public int LogLevel { get; set; }
-    public List<string> Commands { get; set; }
   }
 
   internal struct Channels {

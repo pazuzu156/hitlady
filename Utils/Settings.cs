@@ -25,9 +25,7 @@ namespace Hitlady.Utils {
       }
     }
 
-    private bool exists() {
-      return File.Exists(_settingsFile);
-    }
+    private bool exists() => File.Exists(_settingsFile);
 
     private void create() {
       Console.Write("Your bot's token: ");
@@ -79,10 +77,7 @@ namespace Hitlady.Utils {
             Password = (string.IsNullOrEmpty(dbpw)) ? string.Empty : dbpw,
             Name = (string.IsNullOrEmpty(dbn)) ? "hitlady" : dbn
           },
-          LogLevel = 2,
-          Commands = new List<String>() {
-            "Hitlady.Commands.AboutCommand"
-          }
+          LogLevel = 2
         };
 
         var se = new SerializerBuilder()
