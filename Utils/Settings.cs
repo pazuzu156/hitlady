@@ -55,18 +55,12 @@ namespace Hitlady.Utils {
       Int32.TryParse(dbp, NumberStyles.Integer, CultureInfo.CurrentCulture, out dbpi);
 
       Generated = true;
-      var pl = new List<string>();
-
-      if (string.IsNullOrEmpty(prefix)) {
-        pl.Add("-");
-      } else {
-        pl.Add(prefix);
-      }
+      var pl = (string.IsNullOrEmpty(prefix)) ? "!" : prefix;
 
       using (var writer = new StreamWriter(File.Create(_settingsFile))) {
         var data = new ConfigYml {
           Token = token,
-          Prefixes = pl,
+          Prefix = pl,
           Channels = new Channels {
             BotSpam = bsu
           },
