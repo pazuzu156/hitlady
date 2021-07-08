@@ -5,9 +5,9 @@ using Hitlady.Data;
 using Hitlady.Utils;
 
 namespace Hitlady.Commands {
-  public class BaseCommand : BaseCommandModule {
+  public class BaseModule : BaseCommandModule {
     protected ConfigYml _config;
-    public BaseCommand() {
+    public BaseModule() {
       _config = Settings.GetInstance().Config;
     }
     public void EmbedFooter(CommandContext context, in DiscordEmbedBuilder embedBuilder) {
