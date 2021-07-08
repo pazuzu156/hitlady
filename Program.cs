@@ -4,12 +4,12 @@ using System.Reflection;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
-using Hitlady.Commands;
 using Hitlady.Data;
 using Hitlady.Utils;
 using Microsoft.Extensions.Logging;
 
-namespace Hitlady {
+namespace Hitlady
+{
   class Program {
     /// <summary>
     /// Bot's Verson.
@@ -48,7 +48,7 @@ namespace Hitlady {
       _client = new DiscordClient(new DiscordConfiguration {
         Token = Config.Token,
         TokenType = TokenType.Bot,
-        Intents = DiscordIntents.AllUnprivileged | DiscordIntents.GuildMembers,
+        Intents = DiscordIntents.AllUnprivileged | DiscordIntents.GuildMembers | DiscordIntents.GuildPresences,
         AutoReconnect = true,
         MinimumLogLevel = (LogLevel) Config.LogLevel
       });
@@ -61,9 +61,6 @@ namespace Hitlady {
         StringPrefixes = new List<string> { Config.Prefix },
       });
       _commands.CommandExecuted += bot.Commands_CommandExecuted;
-
-      // all command modules should be registered here
-      // _commands.RegisterCommands<AboutModule>();
       _commands.RegisterCommands(typeof(Program).GetTypeInfo().Assembly);
 
       await _client.ConnectAsync();

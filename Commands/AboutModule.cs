@@ -4,17 +4,15 @@ using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
-using Hitlady.Utils;
 using static DSharpPlus.Entities.DiscordEmbedBuilder;
 
 namespace Hitlady.Commands
 {
   [Group("about"), Description("Shows info about the bot")] // this command is grouped (sub commands within about)
-  public class AboutModule : BaseCommand {
+  public class AboutModule : BaseModule {
     private const string _inviteLink = ""; // I'll `maybe` use this at some point?
 
-    // private const string _sourceUrl = "https://github.com/pazuzu156/hitlady";
-    private const string _sourceUrl = "Repo Currently Private!";
+    private const string _sourceUrl = "https://gitlab.com/pazuzu156/hitlady";
 
     [GroupCommand] // this will be the base command method call
     public async Task AboutCommand(CommandContext context) {

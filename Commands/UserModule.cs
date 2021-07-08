@@ -1,52 +1,74 @@
+using System;
+using System.Globalization;
+using System.Text;
 using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
+using Humanizer.DateTimeHumanizeStrategy;
+using static DSharpPlus.Entities.DiscordEmbedBuilder;
 
 namespace Hitlady.Commands {
-  public class UserModule : BaseCommand {
-    [Command("kick"), RequirePermissions(DSharpPlus.Permissions.KickMembers), Description("Kicks a user [Requires KickMembers persission]")]
-    public async Task KickUser(CommandContext context, DiscordMember member, [RemainingText] string reason = "") {
-      reason = reason.Trim(new char[0]);
-
-      if (reason == "") {
-        reason = "None Given";
+  [Group("info"), Description("Gets user info")]
+  public class UserModule : BaseModule {
+    [GroupCommand]
+    public async Task GetUserInfo(CommandContext context, [RemainingText, Description("The user to get info on")] DiscordMember member = null) {
+      if (member == null) {
+        member = context.Member;
       }
 
-      var kicker = context.Member.DisplayName;
-      var msg = $"{kicker} kicked you. | Reason: {reason}";
-      var embed = new DiscordEmbedBuilder {
-        Title = $"User {member.DisplayName} was kicked",
-        Color = DiscordColor.Goldenrod
-      };
-      embed.AddField("Kicked by", kicker, true);
-      embed.AddField("Reason", reason, true);
-
-      await member.SendMessageAsync(msg);
-      await member.RemoveAsync(reason);
-      await GetBotSpam(context.Guild).SendMessageAsync(embed: embed);
+      await context.RespondAsync(embed: buildUserInfoEmbed(member));
     }
 
-    [Command("ban"), RequirePermissions(DSharpPlus.Permissions.BanMembers), Description("Bans a user [Requires BanMembers persission]")]
-    public async Task BanUser(CommandContext context, DiscordMember member, [RemainingText] string reason = "") {
-      reason = reason.Trim(new char[0]);
+    private DiscordEmbed buildUserInfoEmbed(DiscordMember member) {
+      var embed = new DiscordEmbedBuilder {
+        Color = DiscordColor.Teal,
+        Thumbnail = new EmbedThumbnail {
+          Url = member.AvatarUrl
+        },
+        Timestamp = DateTime.UtcNow
+      };
 
-      if (reason == "") {
-        reason = "None Given";
+      string name = string.Format(
+        "{0}#{1}{2}",
+        member.DisplayName,
+        member.Discriminator,
+        (member.IsBot) ? " (Bot)" : ""
+      );
+
+      embed.AddField("ID", member.Id.ToString());
+      embed.AddField("Name", name);
+
+      if (member.Nickname != null) {
+        embed.AddField("Nickname", member.Nickname);
       }
 
-      var kicker = context.Member.DisplayName;
-      var msg = $"{kicker} banned you. | Reason: {reason}";
-      var embed = new DiscordEmbedBuilder {
-        Title = $"User {member.DisplayName} was banned",
-        Color = DiscordColor.Goldenrod
-      };
-      embed.AddField("Banned by", kicker, true);
-      embed.AddField("Reason", reason, true);
+      DefaultDateTimeHumanizeStrategy s = new DefaultDateTimeHumanizeStrategy();
+      var joined = member.JoinedAt.UtcDateTime;
+      var h = s.Humanize(joined, DateTime.UtcNow, CultureInfo.GetCultureInfoByIetfLanguageTag("en-US"));
+      string joinedString = string.Format(
+        "{0} {1} ({2})",
+        joined.ToLongDateString(),
+        joined.ToLongTimeString(),
+        h
+      );
+      embed.AddField("Joined Server", joinedString);
 
-      await member.SendMessageAsync(msg);
-      await member.BanAsync(7, reason);
-      await GetBotSpam(context.Guild).SendMessageAsync(embed: embed);
+      var rolesBuilder = new StringBuilder();
+
+      foreach (var role in member.Roles) {
+        rolesBuilder.Append(role.Name + ", ");
+      }
+
+      var rolesString = rolesBuilder.ToString().TrimEnd(new char[] { ',', ' ' });
+
+      if (rolesString.Equals("")) {
+        rolesString = "No roles assigned";
+      }
+
+      embed.AddField("Roles", rolesString);
+
+      return embed;
     }
   }
 }

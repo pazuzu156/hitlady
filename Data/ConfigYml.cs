@@ -7,6 +7,7 @@ namespace Hitlady.Data {
     public Channels Channels { get; set; }
     public Database Database { get; set; }
     public int LogLevel { get; set; }
+    public List<ulong> JoinableRoles { get; set; }
   }
 
   public struct Channels {
