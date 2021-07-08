@@ -13,8 +13,7 @@ namespace Hitlady.Commands
   public class AboutModule : BaseCommand {
     private const string _inviteLink = ""; // I'll `maybe` use this at some point?
 
-    // private const string _sourceUrl = "https://github.com/pazuzu156/hitlady";
-    private const string _sourceUrl = "Repo Currently Private!";
+    private const string _sourceUrl = "https://gitlab.com/pazuzu156/hitlady";
 
     [GroupCommand] // this will be the base command method call
     public async Task AboutCommand(CommandContext context) {
