@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
-using Hitlady.Utils;
 using static DSharpPlus.Entities.DiscordEmbedBuilder;
 
 namespace Hitlady.Commands
