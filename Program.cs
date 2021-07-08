@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using DSharpPlus;
@@ -21,6 +22,8 @@ namespace Hitlady {
     public static DateTime StartTime { get; private set; }
 
     public static ConfigYml Config { get; private set; }
+
+    public static Logging Logger { get; private set; }
 
     /// <summary>
     /// Discord client instance.
@@ -50,15 +53,18 @@ namespace Hitlady {
         MinimumLogLevel = (LogLevel) Config.LogLevel
       });
 
+      Logger = new Logging(_client);
+
       var bot = new BotClient(_client);
 
       _commands = _client.UseCommandsNext(new CommandsNextConfiguration {
-        StringPrefixes = Config.Prefixes,
+        StringPrefixes = new List<string> { Config.Prefix },
       });
       _commands.CommandExecuted += bot.Commands_CommandExecuted;
 
       // all command modules should be registered here
       // _commands.RegisterCommands<AboutModule>();
+      _commands.RegisterCommands(typeof(Program).GetTypeInfo().Assembly);
 
       await _client.ConnectAsync();
       await Task.Delay(-1);

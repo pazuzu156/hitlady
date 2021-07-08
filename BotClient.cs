@@ -4,7 +4,6 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using Hitlady.Data;
-using Microsoft.Extensions.Logging;
 
 namespace Hitlady {
   class BotClient {
@@ -20,12 +19,7 @@ namespace Hitlady {
       client.GuildMemberRemoved += Client_GuildMemberRemoved;
     }
 
-    private Task Client_Ready(DiscordClient sender, ReadyEventArgs e)
-    {
-      _client.Logger.LogInformation("Bot is ready for use!");
-
-      return Task.CompletedTask;
-    }
+    private async Task Client_Ready(DiscordClient sender, ReadyEventArgs e) => await Program.Logger.Info("Bot is ready for use!");
 
     private async Task Client_GuildMemberAdded(DiscordClient s, GuildMemberAddEventArgs e) => await Send(s, $"{GetUser(e.Member)} has joined the server. Welcome!");
 
@@ -38,11 +32,7 @@ namespace Hitlady {
       await channel.SendMessageAsync(message);
     }
 
-    internal Task Commands_CommandExecuted(CommandsNextExtension sender, CommandExecutionEventArgs e)
-    {
-      e.Context.Client.Logger.LogInformation($"{e.Context.Member.Username}#{e.Context.Member.Discriminator} executed the '{e.Command.QualifiedName}' command successfully");
-
-      return Task.CompletedTask;
-    }
+    internal async Task Commands_CommandExecuted(CommandsNextExtension sender, CommandExecutionEventArgs e)
+      => await Program.Logger.Info($"{e.Context.Member.Username}#{e.Context.Member.Discriminator} executed the '{e.Command.QualifiedName}' command successfully");
   }
 }
