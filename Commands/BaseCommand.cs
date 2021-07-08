@@ -19,8 +19,6 @@ namespace Hitlady.Commands {
       return await context.Guild.GetMemberAsync(user.Id);
     }
 
-    public async Task<DiscordChannel> GetBotSpam(DiscordGuild guild) {
-      // var channel = guild.GetChannel()
-    }
+    public DiscordChannel GetBotSpam(DiscordGuild guild) => guild.GetChannel(_config.Channels.BotSpam);
   }
 }
