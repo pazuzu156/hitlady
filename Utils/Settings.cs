@@ -71,7 +71,8 @@ namespace Hitlady.Utils {
             Password = (string.IsNullOrEmpty(dbpw)) ? string.Empty : dbpw,
             Name = (string.IsNullOrEmpty(dbn)) ? "hitlady" : dbn
           },
-          LogLevel = 2
+          LogLevel = 2,
+          JoinableRoles = new List<ulong>(){}
         };
 
         var se = new SerializerBuilder()
