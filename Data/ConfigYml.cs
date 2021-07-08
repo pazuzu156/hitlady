@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 namespace Hitlady.Data {
-  internal struct ConfigYml {
+  public struct ConfigYml {
     public string Token { get; set; }
     public string Prefix { get; set; }
     public Channels Channels { get; set; }
@@ -9,11 +9,11 @@ namespace Hitlady.Data {
     public int LogLevel { get; set; }
   }
 
-  internal struct Channels {
+  public struct Channels {
     public ulong BotSpam { get; set; }
   }
 
-  internal struct Database {
+  public struct Database {
     public string Hostname { get; set; }
     public int Port { get; set; }
     public string Username { get; set; }
