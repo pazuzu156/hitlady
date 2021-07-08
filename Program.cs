@@ -48,7 +48,7 @@ namespace Hitlady {
       _client = new DiscordClient(new DiscordConfiguration {
         Token = Config.Token,
         TokenType = TokenType.Bot,
-        Intents = DiscordIntents.AllUnprivileged | DiscordIntents.GuildMembers,
+        Intents = DiscordIntents.AllUnprivileged | DiscordIntents.GuildMembers | DiscordIntents.GuildPresences,
         AutoReconnect = true,
         MinimumLogLevel = (LogLevel) Config.LogLevel
       });
