@@ -68,7 +68,7 @@ namespace Hitlady.Commands {
 
       embed.AddField("Roles", rolesString);
 
-      string presenceString = "";
+      // string presenceString = "";
 
       // try {
       //   presenceString = member.Presence.Activity.Name;
@@ -76,43 +76,43 @@ namespace Hitlady.Commands {
       //   presenceString = "";
       // }
 
-      try {
-        var pres = member.Presence.Activity;
-          Console.WriteLine(pres.RichPresence.Details);
+      // try {
+      //   var pres = member.Presence.Activity;
+      //     Console.WriteLine(pres.RichPresence.Details);
 
-        if (pres.RichPresence != null) {
-          // rich presence
-        } else {
-          // regular
-        }
+      //   if (pres.RichPresence != null) {
+      //     // rich presence
+      //   } else {
+      //     // regular
+      //   }
 
-        // if (pres.Name == "Custom Status") {
-        //   embed.AddField("Status", member.Presence.Activity.CustomStatus.Name);
-        // } else {
-        //   if (pres.Name != "") {
-        //     string fn = "Currently ";
-        //   // embed.AddField("Currently Playing", presenceString);
-        //     switch (pres.ActivityType) {
-        //       case ActivityType.Playing:
-        //         fn += "Playing";
-        //         break;
-        //       case ActivityType.ListeningTo:
-        //         fn += "Listening to";
-        //         break;
-        //       case ActivityType.Watching:
-        //         fn += "Watching";
-        //         break;
-        //       case ActivityType.Streaming:
-        //         fn += "Streaming";
-        //         break;
-        //     }
+      //   // if (pres.Name == "Custom Status") {
+      //   //   embed.AddField("Status", member.Presence.Activity.CustomStatus.Name);
+      //   // } else {
+      //   //   if (pres.Name != "") {
+      //   //     string fn = "Currently ";
+      //   //   // embed.AddField("Currently Playing", presenceString);
+      //   //     switch (pres.ActivityType) {
+      //   //       case ActivityType.Playing:
+      //   //         fn += "Playing";
+      //   //         break;
+      //   //       case ActivityType.ListeningTo:
+      //   //         fn += "Listening to";
+      //   //         break;
+      //   //       case ActivityType.Watching:
+      //   //         fn += "Watching";
+      //   //         break;
+      //   //       case ActivityType.Streaming:
+      //   //         fn += "Streaming";
+      //   //         break;
+      //   //     }
 
-        //     embed.AddField(fn, pres.Name);
-        //   }
-        // }
-      } catch (Exception ex) {
-        Console.WriteLine(ex);
-      }
+      //   //     embed.AddField(fn, pres.Name);
+      //   //   }
+      //   // }
+      // } catch (Exception ex) {
+      //   Console.WriteLine(ex);
+      // }
 
       // if (!presenceString.Equals("")) {
         // string fn = "Currently ";
