@@ -4,7 +4,7 @@ using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
 namespace Hitlady.Commands {
-  public class ManageUserModule : BaseCommand {
+  public class ManageUserModule : BaseModule {
     [Command("kick"), RequirePermissions(DSharpPlus.Permissions.KickMembers), Description("Kicks a user [Requires KickMembers persission]")]
     public async Task KickUser(CommandContext context, DiscordMember member, [RemainingText] string reason = "") {
       reason = reason.Trim(new char[0]);

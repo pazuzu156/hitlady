@@ -7,7 +7,7 @@ using DSharpPlus.Entities;
 namespace Hitlady.Commands
 {
   [Group("roles"), Description("List server's joinable roles")]
-  public class RolesModule : BaseCommand {
+  public class RolesModule : BaseModule {
     [GroupCommand]
     public async Task ListRoles(CommandContext context) {
       var msg = "List of joinable roles:```";

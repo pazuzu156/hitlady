@@ -10,7 +10,7 @@ using static DSharpPlus.Entities.DiscordEmbedBuilder;
 
 namespace Hitlady.Commands {
   [Group("info"), Description("Gets user info")]
-  public class UserModule : BaseCommand {
+  public class UserModule : BaseModule {
     [GroupCommand]
     public async Task GetUserInfo(CommandContext context, [RemainingText, Description("The user to get info on")] DiscordMember member = null) {
       if (member == null) {
