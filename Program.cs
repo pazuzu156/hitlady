@@ -4,12 +4,12 @@ using System.Reflection;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
-using Hitlady.Commands;
 using Hitlady.Data;
 using Hitlady.Utils;
 using Microsoft.Extensions.Logging;
 
-namespace Hitlady {
+namespace Hitlady
+{
   class Program {
     /// <summary>
     /// Bot's Verson.

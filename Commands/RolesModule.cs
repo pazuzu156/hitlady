@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-namespace Hitlady.Commands {
+namespace Hitlady.Commands
+{
   [Group("roles"), Description("List server's joinable roles")]
   public class RolesModule : BaseCommand {
     [GroupCommand]
