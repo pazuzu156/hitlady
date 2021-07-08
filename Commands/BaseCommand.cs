@@ -40,5 +40,36 @@ namespace Hitlady.Commands {
 
       return isJoinable;
     }
+
+    /// <summary>
+    /// Checks if user has this role assigned.
+    /// </summary>
+    /// <param name="role"></param>
+    /// <returns></returns>
+    protected bool HasRole(DiscordMember member, DiscordRole role) {
+      foreach (var userRole in member.Roles) {
+        if (role == userRole) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    /// <summary>
+    /// Get a discord role from a string
+    /// </summary>
+    /// <param name="guild"></param>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    protected DiscordRole GetRoleFromName(DiscordGuild guild, string name) {
+      foreach (var role in guild.Roles.Values) {
+        if (role.Name.ToLower() == name) {
+          return role;
+        }
+      }
+
+      return null;
+    }
   }
 }

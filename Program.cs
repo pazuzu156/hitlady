@@ -61,9 +61,6 @@ namespace Hitlady {
         StringPrefixes = new List<string> { Config.Prefix },
       });
       _commands.CommandExecuted += bot.Commands_CommandExecuted;
-
-      // all command modules should be registered here
-      // _commands.RegisterCommands<AboutModule>();
       _commands.RegisterCommands(typeof(Program).GetTypeInfo().Assembly);
 
       await _client.ConnectAsync();
