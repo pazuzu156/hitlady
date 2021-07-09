@@ -8,6 +8,7 @@ namespace Hitlady.Data {
     public Database Database { get; set; }
     public int LogLevel { get; set; }
     public List<ulong> JoinableRoles { get; set; }
+    public List<string> WelcomeMessages { get; set; }
   }
 
   public struct Channels {
