@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hitlady.Commands {
   public class LastFmModule : BaseModule {
-    [Command("register")]
+    [Command("register"), Description("Registers your LastFM esername")]
     public async Task Register(CommandContext context, [RemainingText, Description("LastFM Username")] string username) {
       try {
         var db = await Sql.Connection.Connect();
@@ -37,7 +37,7 @@ namespace Hitlady.Commands {
       }
     }
 
-    [Command("unregister")]
+    [Command("unregister"), Description("Unregisters your LastFM username")]
     public async Task Unregister(CommandContext context) {
       try {
         var db = await Sql.Connection.Connect();
