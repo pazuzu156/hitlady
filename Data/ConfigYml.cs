@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using YamlDotNet.Core.Tokens;
 
 namespace Hitlady.Data {
   public struct ConfigYml {
@@ -8,7 +9,7 @@ namespace Hitlady.Data {
     public Database Database { get; set; }
     public int LogLevel { get; set; }
     public List<ulong> JoinableRoles { get; set; }
-    public List<string> WelcomeMessages { get; set; }
+    public Messages Messages { get; set; }
   }
 
   public struct Channels {
@@ -21,5 +22,10 @@ namespace Hitlady.Data {
     public string Username { get; set; }
     public string Password { get; set; }
     public string Name { get; set; }
+  }
+
+  public struct Messages {
+    public List<string> Join { get; set; }
+    public List<string> Leave { get; set; }
   }
 }
