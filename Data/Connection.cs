@@ -2,7 +2,7 @@ using ServiceStack.OrmLite;
 using System.Data;
 using System.Threading.Tasks;
 
-namespace Hitlady.Sql {
+namespace Hitlady.Data {
   public class Connection {
     public static async Task<IDbConnection> Connect() {
       var dbc = Program.Config.Database;

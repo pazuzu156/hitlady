@@ -9,14 +9,14 @@ namespace Hitlady.Commands {
     [Command("register"), Description("Registers your LastFM esername")]
     public async Task Register(CommandContext context, [RemainingText, Description("LastFM Username")] string username) {
       try {
-        var db = await Sql.Connection.Connect();
-        var user = await db.SelectAsync<Sql.User>(q => q.LastFM == username.Trim());
+        var db = await Data.Connection.Connect();
+        var user = await db.SelectAsync<Data.User>(q => q.LastFM == username.Trim());
 
         if (user.Count == 0) {
-          user = await db.SelectAsync<Sql.User>(q => q.DiscordId == context.Member.Id);
+          user = await db.SelectAsync<Data.User>(q => q.DiscordId == context.Member.Id);
 
           if (user.Count == 0) {
-            db.Insert(new Sql.User{
+            db.Insert(new Data.User{
               DiscordId = context.Member.Id,
               LastFM = username.Trim(),
               CreatedAt = DateTime.UtcNow,
@@ -40,8 +40,8 @@ namespace Hitlady.Commands {
     [Command("unregister"), Description("Unregisters your LastFM username")]
     public async Task Unregister(CommandContext context) {
       try {
-        var db = await Sql.Connection.Connect();
-        var exp = db.From<Sql.User>().Where(q => q.DiscordId == context.Member.Id);
+        var db = await Data.Connection.Connect();
+        var exp = db.From<Data.User>().Where(q => q.DiscordId == context.Member.Id);
         var user = await db.SelectAsync(exp);
 
         if (user.Count > 0) {

@@ -1,7 +1,7 @@
 using System;
 using ServiceStack.DataAnnotations;
 
-namespace Hitlady.Sql {
+namespace Hitlady.Data {
   [Alias("users")]
   public class User {
     [PrimaryKey, AutoIncrement, Alias("id")]
