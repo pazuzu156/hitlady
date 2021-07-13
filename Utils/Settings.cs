@@ -72,8 +72,11 @@ namespace Hitlady.Utils {
             Name = (string.IsNullOrEmpty(dbn)) ? "hitlady" : dbn
           },
           LogLevel = 2,
-          JoinableRoles = new List<ulong>(){},
-          WelcomeMessages = new List<string>(){ "PLEASE PLACE WELCOME MESSAGES IN HERE" }
+          JoinableRoles = new List<ulong>{},
+          Messages = new Messages {
+            Join = new List<string>{ "PLEASE PLACE WELCOME MESSAGES IN HERE" },
+            Leave = new List<string>{ "PLEASE PLACE LEAVE MESSAGES IN HERE" },
+          }
         };
 
         var se = new SerializerBuilder()
