@@ -7,6 +7,7 @@ namespace Hitlady.Data {
     public string Prefix { get; set; }
     public Channels Channels { get; set; }
     public Database Database { get; set; }
+    public Lastfm Lastfm { get; set; }
     public int LogLevel { get; set; }
     public List<ulong> JoinableRoles { get; set; }
     public Messages Messages { get; set; }
@@ -22,6 +23,11 @@ namespace Hitlady.Data {
     public string Username { get; set; }
     public string Password { get; set; }
     public string Name { get; set; }
+  }
+
+  public struct Lastfm {
+    public string ApiKey { get; set; }
+    public string ApiSecret { get; set; }
   }
 
   public struct Messages {

@@ -71,6 +71,10 @@ namespace Hitlady.Utils {
             Password = (string.IsNullOrEmpty(dbpw)) ? string.Empty : dbpw,
             Name = (string.IsNullOrEmpty(dbn)) ? "hitlady" : dbn
           },
+          Lastfm = new Data.Lastfm {
+            ApiKey = string.Empty,
+            ApiSecret = string.Empty
+          },
           LogLevel = 2,
           JoinableRoles = new List<ulong>{},
           Messages = new Messages {

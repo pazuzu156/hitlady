@@ -1,34 +1,41 @@
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
+using Hitlady.Utils;
 using ServiceStack.OrmLite;
 using System;
 using System.Threading.Tasks;
 
-namespace Hitlady.Commands {
-  public class LastFmModule : BaseModule {
+namespace Hitlady.Commands.Lastfm {
+  public class AccountModule : BaseModule {
     [Command("register"), Description("Registers your LastFM esername")]
     public async Task Register(CommandContext context, [RemainingText, Description("LastFM Username")] string username) {
       try {
         var db = await Data.Connection.Connect();
         var user = await db.SelectAsync<Data.User>(q => q.LastFM == username.Trim());
 
-        if (user.Count == 0) {
-          user = await db.SelectAsync<Data.User>(q => q.DiscordId == context.Member.Id);
+        var fm = new LFM(username);
 
+        if (fm.UserExists().GetAwaiter().GetResult()) {
           if (user.Count == 0) {
-            db.Insert(new Data.User{
-              DiscordId = context.Member.Id,
-              LastFM = username.Trim(),
-              CreatedAt = DateTime.UtcNow,
-              UpdatedAt = DateTime.UtcNow
-            });
+            user = await db.SelectAsync<Data.User>(q => q.DiscordId == context.Member.Id);
 
-            await context.RespondAsync("You've successfully registered your Last FM username");
+            if (user.Count == 0) {
+              db.Insert(new Data.User{
+                DiscordId = context.Member.Id,
+                LastFM = username.Trim(),
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+              });
+
+              await context.RespondAsync("You've successfully registered your Last FM username");
+            } else {
+              await context.RespondAsync($"You're already registered! Need to change your username? `{Program.Config.Prefix}unregister` first, then register again");
+            }
           } else {
-            await context.RespondAsync($"You're already registered! Need to change your username? `{Program.Config.Prefix}unregister` first, then register again");
+            await context.RespondAsync("That LastFM username is already registered to another user!");
           }
         } else {
-          await context.RespondAsync("That LastFM username is already registered to another user!");
+          await context.RespondAsync("That username wasn't found on Lastfm!");
         }
 
         db.Close();
