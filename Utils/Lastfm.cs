@@ -1,5 +1,6 @@
-using Hqub.Lastfm;
 using System.Threading.Tasks;
+using IF.Lastfm.Core.Api;
+using IF.Lastfm.Core.Objects;
 
 namespace Hitlady.Utils {
   public class LFM {
@@ -11,7 +12,7 @@ namespace Hitlady.Utils {
       var fmConfig = Program.Config.Lastfm;
       m_LastfmUsername = lastfmUsername;
 
-      _client = new LastfmClient(fmConfig.ApiKey);
+      _client = new LastfmClient(fmConfig.ApiKey, fmConfig.ApiSecret);
     }
 
     public async Task<bool> UserExists() {
@@ -20,7 +21,7 @@ namespace Hitlady.Utils {
       try {
         var user = await _client.User.GetInfoAsync(m_LastfmUsername);
 
-        if (user.Name != null) {
+        if (user.Content.Name != null) {
           exists = true;
         }
       } catch {}
@@ -28,8 +29,16 @@ namespace Hitlady.Utils {
       return exists;
     }
 
-    public async Task<Hqub.Lastfm.Entities.User> Artist(string name) {
-      return await _client.User.GetInfoAsync(name);
+    public async Task<LastTrack> GetNowPlaying() {
+      var tracks = await _client.User.GetRecentScrobbles(m_LastfmUsername, count: 3);
+
+      foreach (var track in tracks) {
+        if ((bool)track.IsNowPlaying) {
+          return track;
+        }
+      }
+
+      return null;
     }
   }
 }

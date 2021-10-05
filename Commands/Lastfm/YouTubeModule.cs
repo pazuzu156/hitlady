@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -7,8 +6,9 @@ using System.Threading.Tasks;
 using System.Web;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
-using Newtonsoft.Json;
+using Hitlady.Utils;
 using Newtonsoft.Json.Linq;
+using ServiceStack.OrmLite;
 
 namespace Hitlady.Commands.Lastfm {
   public class YouTubeModule : BaseModule {
@@ -16,11 +16,21 @@ namespace Hitlady.Commands.Lastfm {
 
     [Command("youtube"), Aliases("yt")]
     public async Task Yt(CommandContext context, [RemainingText]string item) {
-      if (item != "") {
+      if (item != null) {
         await Search(context, item);
       } else {
         // get np
+        var db = await Data.Connection.Connect();
+        var user = await db.SelectAsync<Data.User>(q => q.DiscordId == context.User.Id);
 
+        var fm = new LFM(user[0].LastFM);
+        var np = await fm.GetNowPlaying();
+
+        if (np == null) {
+          await context.RespondAsync("You're not currently listening to anything. Try searching for something instead.");
+        } else {
+          await Search(context, $"{np.ArtistName} {np.Name}");
+        }
       }
     }
 
@@ -45,7 +55,7 @@ namespace Hitlady.Commands.Lastfm {
         videos.Add(i);
       }
 
-      await context.RespondAsync($"Result for **{item}**: https://youtu.be/{videos[0].Id.VideoId}");
+      await context.RespondAsync($"YouTube search result for **{item}**:\nhttps://youtu.be/{videos[0].Id.VideoId}");
     }
 
     public class VideoItems {
