@@ -75,6 +75,9 @@ namespace Hitlady.Utils {
             ApiKey = string.Empty,
             ApiSecret = string.Empty
           },
+          YouTube = new YouTube {
+            ApiKey = string.Empty
+          },
           LogLevel = 2,
           JoinableRoles = new List<ulong>{},
           Messages = new Messages {
