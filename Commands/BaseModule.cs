@@ -3,6 +3,7 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
 using Hitlady.Data;
 using Hitlady.Utils;
+using ServiceStack.OrmLite;
 
 namespace Hitlady.Commands {
   public class BaseModule : BaseCommandModule {
@@ -57,7 +58,7 @@ namespace Hitlady.Commands {
     }
 
     /// <summary>
-    /// Get a discord role from a string
+    /// Get a discord role from a string.
     /// </summary>
     /// <param name="guild"></param>
     /// <param name="name"></param>
@@ -67,6 +68,22 @@ namespace Hitlady.Commands {
         if (role.Name.ToLower() == name) {
           return role;
         }
+      }
+
+      return null;
+    }
+
+    /// <summary>
+    /// Gets a user from the database.
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
+    protected async Task<Data.User> GetDatabaseUser(CommandContext context) {
+      var db = await Data.Connection.Connect();
+      var user = await db.SelectAsync<Data.User>(q => q.DiscordId == context.User.Id);
+
+      if (user.Count > 0) {
+        return user[0];
       }
 
       return null;

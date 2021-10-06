@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using IF.Lastfm.Core.Api;
+using IF.Lastfm.Core.Api.Helpers;
 using IF.Lastfm.Core.Objects;
 
 namespace Hitlady.Utils {
@@ -30,15 +31,19 @@ namespace Hitlady.Utils {
     }
 
     public async Task<LastTrack> GetNowPlaying() {
-      var tracks = await _client.User.GetRecentScrobbles(m_LastfmUsername, count: 3);
+      var tracks = await GetRecentTracks(3);
 
       foreach (var track in tracks) {
-        if ((bool)track.IsNowPlaying) {
+        if (track.IsNowPlaying != null) {
           return track;
         }
       }
 
       return null;
+    }
+
+    public async Task<PageResponse<LastTrack>> GetRecentTracks(int limit = 5) {
+      return await _client.User.GetRecentScrobbles(m_LastfmUsername, count: limit);
     }
   }
 }
