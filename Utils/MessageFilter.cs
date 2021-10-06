@@ -1,6 +1,4 @@
-using System;
 using System.Text.RegularExpressions;
-using DSharpPlus;
 using DSharpPlus.Entities;
 
 namespace Hitlady.Utils {

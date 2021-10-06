@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using YamlDotNet.Core.Tokens;
 
 namespace Hitlady.Data {
   public struct ConfigYml {
