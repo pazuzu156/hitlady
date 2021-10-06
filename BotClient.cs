@@ -33,7 +33,6 @@ namespace Hitlady {
     private string getUser(DiscordMember member) => (!string.IsNullOrEmpty(member.Nickname)) ? member.Nickname : member.Username;
 
     private async Task sendGuildMemberMessage(DiscordClient client, MessageFilter filter, List<string> messages) {
-      var rand = new Random();
       var index = getIndex(messages);
 
       if (_lastUsedIndex == 99) { // initial value, go ahead and change on new index

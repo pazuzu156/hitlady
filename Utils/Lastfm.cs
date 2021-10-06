@@ -16,6 +16,10 @@ namespace Hitlady.Utils {
       _client = new LastfmClient(fmConfig.ApiKey, fmConfig.ApiSecret);
     }
 
+    public LastfmClient GetClient() {
+      return _client;
+    }
+
     public async Task<bool> UserExists() {
       bool exists = false;
 
@@ -44,6 +48,10 @@ namespace Hitlady.Utils {
 
     public async Task<PageResponse<LastTrack>> GetRecentTracks(int limit = 5) {
       return await _client.User.GetRecentScrobbles(m_LastfmUsername, count: limit);
+    }
+
+    public async Task<LastResponse<LastAlbum>> GetAlbum(string artist, string album) {
+      return await _client.Album.GetInfoAsync(artist, album);
     }
   }
 }

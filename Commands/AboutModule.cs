@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
-using static DSharpPlus.Entities.DiscordEmbedBuilder;
 
 namespace Hitlady.Commands
 {
@@ -69,7 +68,7 @@ namespace Hitlady.Commands
       var embed = new DiscordEmbedBuilder {
         Title = $"About {member.DisplayName}",
         Color = DiscordColor.Chartreuse,
-        Thumbnail = new EmbedThumbnail {
+        Thumbnail = new DiscordEmbedBuilder.EmbedThumbnail {
           Url = member.AvatarUrl
         },
         Description = $"{member.DisplayName} is a bot written in C#. Version: {Program.Version.ToString()}",

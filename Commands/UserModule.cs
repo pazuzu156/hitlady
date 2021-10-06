@@ -6,7 +6,6 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 using Humanizer.DateTimeHumanizeStrategy;
-using static DSharpPlus.Entities.DiscordEmbedBuilder;
 
 namespace Hitlady.Commands {
   [Group("info"), Description("Gets user info")]
@@ -23,7 +22,7 @@ namespace Hitlady.Commands {
     private DiscordEmbed buildUserInfoEmbed(DiscordMember member) {
       var embed = new DiscordEmbedBuilder {
         Color = DiscordColor.Teal,
-        Thumbnail = new EmbedThumbnail {
+        Thumbnail = new DiscordEmbedBuilder.EmbedThumbnail {
           Url = member.AvatarUrl
         },
         Timestamp = DateTime.UtcNow
