@@ -43,7 +43,7 @@ namespace Hitlady.Commands.Lastfm {
         }
       };
 
-      embed.AddField("Currently Playing", $"{np[0]} {np[2]}");
+      embed.AddField("Currently Playing", $"{np[0]} - {np[2]}");
       embed.AddField("Recent Plays", (string)recents["recents"]);
 
       EmbedFooter(context, in embed);
