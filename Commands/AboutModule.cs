@@ -28,7 +28,7 @@ namespace Hitlady.Commands
     }
 
     [Command("uptime"), Description("Displays the amount of time the bot has been live")]
-    public async Task Uptime(CommandContext context) {
+    public async Task UptimeCommand(CommandContext context) {
       var delta = DateTime.UtcNow - Program.StartTime;
       var days = delta.Days.ToString("n0");
       var hrs = delta.Hours.ToString("n0");
@@ -54,7 +54,7 @@ namespace Hitlady.Commands
     }
 
     [Command("source"), Description("Gives the Github link to the source code")]
-    public async Task Source(CommandContext context) {
+    public async Task SourceCommand(CommandContext context) {
       await context.RespondAsync($"{_sourceUrl}");
     }
 

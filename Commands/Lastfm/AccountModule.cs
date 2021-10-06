@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Hitlady.Commands.Lastfm {
   public class AccountModule : BaseModule {
     [Command("register"), Description("Registers your LastFM esername")]
-    public async Task Register(CommandContext context, [RemainingText, Description("LastFM Username")] string username) {
+    public async Task RegisterCommand(CommandContext context, [RemainingText, Description("LastFM Username")] string username) {
       try {
         var db = await Data.Connection.Connect();
         var user = await db.SelectAsync<Data.User>(q => q.LastFM == username.Trim());
@@ -45,7 +45,7 @@ namespace Hitlady.Commands.Lastfm {
     }
 
     [Command("unregister"), Description("Unregisters your LastFM username")]
-    public async Task Unregister(CommandContext context) {
+    public async Task UnregisterCommand(CommandContext context) {
       try {
         var db = await Data.Connection.Connect();
         var exp = db.From<Data.User>().Where(q => q.DiscordId == context.Member.Id);

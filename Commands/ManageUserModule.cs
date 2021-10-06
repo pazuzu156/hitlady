@@ -6,7 +6,7 @@ using DSharpPlus.Entities;
 namespace Hitlady.Commands {
   public class ManageUserModule : BaseModule {
     [Command("kick"), RequirePermissions(DSharpPlus.Permissions.KickMembers), Description("Kicks a user [Requires KickMembers persission]")]
-    public async Task KickUser(CommandContext context, [Description("The member to kick")] DiscordMember member, [RemainingText, Description("The reason for kicking the user")] string reason = "") {
+    public async Task KickUserCommand(CommandContext context, [Description("The member to kick")] DiscordMember member, [RemainingText, Description("The reason for kicking the user")] string reason = "") {
       reason = reason.Trim(new char[0]);
 
       if (reason == "") {
@@ -28,7 +28,7 @@ namespace Hitlady.Commands {
     }
 
     [Command("ban"), RequirePermissions(DSharpPlus.Permissions.BanMembers), Description("Bans a user [Requires BanMembers persission]")]
-    public async Task BanUser(CommandContext context, [Description("The member to ban")] DiscordMember member, [RemainingText, Description("The reason for banning the user")] string reason = "") {
+    public async Task BanUserCommand(CommandContext context, [Description("The member to ban")] DiscordMember member, [RemainingText, Description("The reason for banning the user")] string reason = "") {
       reason = reason.Trim(new char[0]);
 
       if (reason == "") {

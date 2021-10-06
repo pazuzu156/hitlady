@@ -9,7 +9,7 @@ namespace Hitlady.Commands
   [Group("roles"), Description("List server's joinable roles"), Aliases(new string[] {"role", "rank", "ranks"})]
   public class RolesModule : BaseModule {
     [GroupCommand]
-    public async Task ListRoles(CommandContext context) {
+    public async Task ListRolesCommand(CommandContext context) {
       var msg = "List of joinable roles:```";
 
       foreach (var role in context.Guild.Roles.Values) {
@@ -26,7 +26,7 @@ namespace Hitlady.Commands
     }
 
     [Command("join"), Description("Join a role or list of roles")]
-    public async Task Join(CommandContext context, [RemainingText, Description("Role(s) to join")] string roleString) {
+    public async Task JoinCommand(CommandContext context, [RemainingText, Description("Role(s) to join")] string roleString) {
       string[] rolesList = roleString.Split(new char[] { ',' });
       var joinedRoles = new List<DiscordRole>();
 
@@ -60,7 +60,7 @@ namespace Hitlady.Commands
     }
 
     [Command("leave"), Description("Leave a role or list of roles")]
-    public async Task Leave(CommandContext context, [RemainingText, Description("Role(s) to leave")] string roleString) {
+    public async Task LeaveCommand(CommandContext context, [RemainingText, Description("Role(s) to leave")] string roleString) {
       string[] rolesList = roleString.Split(new char[] { ',' });
       var leftRoles = new List<DiscordRole>();
 

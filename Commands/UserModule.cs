@@ -12,7 +12,7 @@ namespace Hitlady.Commands {
   [Group("info"), Description("Gets user info")]
   public class UserModule : BaseModule {
     [GroupCommand]
-    public async Task GetUserInfo(CommandContext context, [RemainingText, Description("The user to get info on")] DiscordMember member = null) {
+    public async Task GetUserInfoCommand(CommandContext context, [RemainingText, Description("The user to get info on")] DiscordMember member = null) {
       if (member == null) {
         member = context.Member;
       }

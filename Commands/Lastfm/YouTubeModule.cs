@@ -15,7 +15,7 @@ namespace Hitlady.Commands.Lastfm {
     private string m_RootUrl = "https://www.googleapis.com/youtube/v3/search";
 
     [Command("youtube"), Aliases("yt")]
-    public async Task Yt(CommandContext context, [RemainingText]string item) {
+    public async Task YtCommand(CommandContext context, [RemainingText]string item) {
       if (item != null) {
         await Search(context, item);
       } else {
