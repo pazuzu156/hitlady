@@ -1,3 +1,5 @@
+USE `hitlady`
+
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `discord_id` varchar(255) NOT NULL,

@@ -8,8 +8,8 @@ There's a few things you need to do for installing and running Hitlady.
 
 ### Requirements
 
-* [.NET Core 5 SDK]()
-* MySQL server [XAMPP]() if you're on Windows
+* [.NET Core 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0/runtime)
+* MySQL server [XAMPP](https://www.apachefriends.org/download.html) if you're on Windows
 
 ### Setup
 
@@ -37,7 +37,7 @@ Refer to [Linux](#linux). Same concept applies here.
 
 #### Windows
 
-First, install [msys2](). If you wish to use Windows Subsystem for Linux, you can do that to. After you do that, refer to [Linux](#linux).
+First, install [msys2](https://www.msys2.org/). If you wish to use Windows Subsystem for Linux, you can do that to. After you do that, refer to [Linux](#linux).
 
 ## Contributing
 
