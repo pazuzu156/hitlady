@@ -1,3 +1,4 @@
+using System.Data;
 using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
@@ -27,14 +28,11 @@ namespace Hitlady.Commands {
     /// </summary>
     /// <param name="role"></param>
     /// <returns></returns>
-    protected bool IsRoleJoinable(DiscordRole role)
-    {
+    protected bool IsRoleJoinable(DiscordRole role) {
       bool isJoinable = false;
 
-      foreach (var jr in _config.JoinableRoles)
-      {
-        if (role.Id == jr)
-        {
+      foreach (var jr in _config.JoinableRoles) {
+        if (role.Id == jr) {
           isJoinable = true;
         }
       }
@@ -79,14 +77,19 @@ namespace Hitlady.Commands {
     /// <param name="context"></param>
     /// <returns></returns>
     protected async Task<Data.User> GetDatabaseUser(CommandContext context) {
-      var db = await Data.Connection.Connect();
+      var db = await Db();
       var user = await db.SelectAsync<Data.User>(q => q.DiscordId == context.User.Id);
+      db.Close();
 
       if (user.Count > 0) {
         return user[0];
       }
 
       return null;
+    }
+
+    protected async Task<IDbConnection> Db() {
+      return await Connection.Connect();
     }
   }
 }
