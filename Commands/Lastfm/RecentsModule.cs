@@ -15,25 +15,6 @@ namespace Hitlady.Commands.Lastfm {
       var fm = await FM(context);
       var album = await fm.GetAlbum(np[0], np[1]);
 
-      // keep the following comment block, i'll  use this code later elsewhere
-      // attempt to scrape image
-      // var scraper = new GoogleScraper();
-      // var images = await scraper.GetImagesAsync($"{np[0]} {np[1]}", type: GoogleImageType.Photo);
-      // var imageList = new List<string>();
-
-      // int x = 0;
-      // foreach (var image in images) {
-      //   if (x < 10) {
-      //     x++;
-      //     imageList.Add(image.Url);
-      //   } else {
-      //     break; // break loop. no point scrapping 100 images with our limit (with this lib had a limit...)
-      //   }
-      // }
-
-      // var rand = new Random();
-      // var index = rand.Next(0, imageList.Count - 1);
-
       var imgurl = string.Empty;
 
       try {

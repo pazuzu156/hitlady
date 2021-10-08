@@ -53,5 +53,9 @@ namespace Hitlady.Utils {
     public async Task<LastResponse<LastAlbum>> GetAlbum(string artist, string album) {
       return await _client.Album.GetInfoAsync(artist, album);
     }
+
+    public async Task<LastResponse<LastArtist>> GetArtist(string artist) {
+      return await _client.Artist.GetInfoAsync(artist);
+    }
   }
 }

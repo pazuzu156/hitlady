@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 using System.Web;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
-using Hitlady.Utils;
 using Newtonsoft.Json.Linq;
-using ServiceStack.OrmLite;
 
 namespace Hitlady.Commands.Lastfm {
-  public class YouTubeModule : BaseModule {
+  public class YouTubeModule : BaseFmModule {
     private string m_RootUrl = "https://www.googleapis.com/youtube/v3/search";
 
     [Command("youtube"), Aliases("yt"), Description("Search for a Youtube video from either the current playing tack, or a custom query")]
@@ -19,11 +17,7 @@ namespace Hitlady.Commands.Lastfm {
       if (item != null) {
         await Search(context, item);
       } else {
-        // get np
-        var db = await Data.Connection.Connect();
-        var user = await db.SelectAsync<Data.User>(q => q.DiscordId == context.User.Id);
-
-        var fm = new LFM(user[0].LastFM);
+        var fm = await FM(context);
         var np = await fm.GetNowPlaying();
 
         if (np == null) {
@@ -31,8 +25,6 @@ namespace Hitlady.Commands.Lastfm {
         } else {
           await Search(context, $"{np.ArtistName} {np.Name}");
         }
-
-        db.Close();
       }
     }
 
