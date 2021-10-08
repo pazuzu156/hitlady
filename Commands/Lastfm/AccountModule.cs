@@ -57,6 +57,8 @@ namespace Hitlady.Commands.Lastfm {
         } else {
           await context.RespondAsync("You don't have a Last FM username registered");
         }
+
+        db.Close();
       } catch(Exception ex) {
         await context.RespondAsync("There was an error unregistering you. Please try again later");
         Console.WriteLine(ex);
