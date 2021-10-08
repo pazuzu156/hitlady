@@ -34,12 +34,20 @@ namespace Hitlady.Commands.Lastfm {
       // var rand = new Random();
       // var index = rand.Next(0, imageList.Count - 1);
 
+      var imgurl = string.Empty;
+
+      try {
+        imgurl = album.Content.Images.Largest.ToString();
+      } catch {
+        imgurl = "https://s3.us-east-2.amazonaws.com/kalebklein.com/static/hitlady.png";
+      }
+
       var embed = new DiscordEmbedBuilder {
         Title = $"Now Playing for {context.User.Username}",
         Color = DiscordColor.IndianRed,
         Timestamp = DateTime.UtcNow,
         Thumbnail = new DiscordEmbedBuilder.EmbedThumbnail {
-          Url = album.Content.Images.Largest.ToString()
+          Url = imgurl
         }
       };
 
