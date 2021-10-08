@@ -31,6 +31,8 @@ namespace Hitlady.Commands.Lastfm {
         } else {
           await Search(context, $"{np.ArtistName} {np.Name}");
         }
+
+        db.Close();
       }
     }
 

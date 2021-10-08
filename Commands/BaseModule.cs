@@ -81,6 +81,7 @@ namespace Hitlady.Commands {
     protected async Task<Data.User> GetDatabaseUser(CommandContext context) {
       var db = await Data.Connection.Connect();
       var user = await db.SelectAsync<Data.User>(q => q.DiscordId == context.User.Id);
+      db.Close();
 
       if (user.Count > 0) {
         return user[0];
