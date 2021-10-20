@@ -14,7 +14,7 @@
     <StartupObject>Hitlady.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>hitlady.ico</ApplicationIcon>
+    <ApplicationIcon>../resources/hitlady.ico</ApplicationIcon>
 	</PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DSharpPlus" Version="4.1.0" />

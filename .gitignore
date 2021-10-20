@@ -1,4 +1,7 @@
-bin/
-obj/
+src/bin/
+src/obj/
 .vscode/
 config.yml
+src/config.yml
+build/*.7z
+build/*.xz
