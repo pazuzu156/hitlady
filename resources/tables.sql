@@ -15,7 +15,6 @@ ALTER TABLE `users`
 CREATE TABLE IF NOT EXISTS `plays` (
   `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `discord_id` BIGINT UNSIGNED NOT NULL,
-  `guild_id` BIGINT UNSIGNED NOT NULL,
   `artist_name` VARCHAR(255) NOT NULL,
   `play_count` INT(11) NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT current_timestamp(),
