@@ -61,10 +61,9 @@ namespace Hitlady.Commands.Lastfm {
       };
 
       var converter = new ReverseMarkdown.Converter();
-      var bio = fmArtist.Content.Bio;
-      var bioString = Truncate(converter.Convert(bio.Content), 850, $" [Read More...](https://last.fm/music/{fmArtist.Content.Name}/+wiki)");
+      var bioString = Truncate(converter.Convert(fmArtist.Content.Bio.Content), 850, $" [Read More...]({$"https://last.fm/music/{fmArtist.Content.Name}/+wiki".Replace(' ', '+')})");
 
-      if (bio.Content == "") {
+      if (fmArtist.Content.Bio.Content == "") {
         bioString = "No bio found";
       }
 
@@ -79,10 +78,17 @@ namespace Hitlady.Commands.Lastfm {
         similarArtistsBuilder.Append($"[{s.Name}]({s.Url}), ");
       }
 
+
+
       embed.AddField("Bio", bioString);
       embed.AddField("Tags", tagsBuilder.ToString().TrimEnd(new char[] {',', ' '}));
-      embed.AddField("Similar Artists", similarArtistsBuilder.ToString().TrimEnd(new char[] {',', ' '}));
+
+      if (similarArtistsBuilder.Length > 0) {
+        embed.AddField("Similar Artists", similarArtistsBuilder.ToString().TrimEnd(new char[] { ',', ' ' }));
+      }
+
       embed.AddField("Total Listeners", string.Format("{0:n0}", fmArtist.Content.Stats.Listeners), true);
+      embed.AddField("Total User Plays", string.Format("{0:n0}", fmArtist.Content.Stats.UserPlayCount), true);
 
       if (imageList.Count > 0) {
         var rand = new Random();
