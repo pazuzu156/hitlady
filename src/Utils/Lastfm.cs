@@ -39,7 +39,6 @@ namespace Hitlady.Utils {
 
       foreach (var track in tracks) {
         if (track.IsNowPlaying != null) {
-          // return track;
           var t = await _client.Track.GetInfoAsync(track.Name, track.ArtistName, m_LastfmUsername);
 
           return t.Content;
@@ -54,11 +53,11 @@ namespace Hitlady.Utils {
     }
 
     public async Task<LastResponse<LastAlbum>> GetAlbum(string artist, string album) {
-      return await _client.Album.GetInfoAsync(artist, album);
+      return await _client.Album.GetInfoAsync(artist, album, username: m_LastfmUsername);
     }
 
     public async Task<LastResponse<LastArtist>> GetArtist(string artist) {
-      return await _client.Artist.GetInfoAsync(artist);
+      return await _client.Artist.GetInfoAsync(artist, username: m_LastfmUsername);
     }
   }
 }
