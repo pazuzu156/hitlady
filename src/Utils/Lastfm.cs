@@ -39,7 +39,10 @@ namespace Hitlady.Utils {
 
       foreach (var track in tracks) {
         if (track.IsNowPlaying != null) {
-          return track;
+          // return track;
+          var t = await _client.Track.GetInfoAsync(track.Name, track.ArtistName, m_LastfmUsername);
+
+          return t.Content;
         }
       }
 

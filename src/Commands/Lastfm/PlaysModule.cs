@@ -12,12 +12,24 @@ namespace Hitlady.Commands.Lastfm {
 
       if (np == null) {
         await context.RespondAsync("You're not currently listening to anything. You're not currently listening to anything.");
+      } else {
+        var user = await GetDatabaseUser(context);
+        await context.RespondAsync($"**{user.LastFM}** has listened to *{np.Name}* by *{np.ArtistName}* **{np.UserPlayCount}** time(s).");
       }
     }
 
     [Command("artist"), Aliases("band")]
     public async Task Artist(CommandContext context, [RemainingText] string artist) {
-      await context.RespondAsync("Artist");
+      var fm = await FM(context);
+
+      if (artist == "") {
+        // TODO: from np
+      } else {
+        var user = await GetDatabaseUser(context);
+        var rArtist = await fm.GetArtist(artist);
+
+
+      }
     }
   }
 }

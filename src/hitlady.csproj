@@ -21,10 +21,13 @@
     <PackageReference Include="DSharpPlus.CommandsNext" Version="4.1.0" />
     <PackageReference Include="GScraper" Version="1.0.1" />
     <PackageReference Include="Humanizer.Core" Version="2.11.10" />
-    <PackageReference Include="Inflatable.Lastfm" Version="1.2.0" />
+    <!-- <PackageReference Include="Inflatable.Lastfm" Version="1.2.0" /> -->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="ReverseMarkdown" Version="3.20.0" />
     <PackageReference Include="ServiceStack.OrmLite.MySql" Version="5.12.0" />
     <PackageReference Include="YamlDotNet" Version="11.2.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../lastfm/src/IF.Lastfm.Core/IF.Lastfm.Core.csproj" />
   </ItemGroup>
 </Project>
