@@ -20,9 +20,11 @@ namespace Hitlady.Commands.Lastfm {
             user = await db.SelectAsync<Data.User>(q => q.DiscordId == context.Member.Id);
 
             if (user.Count == 0) {
+              var fmun = await fm.GetClient().User.GetInfoAsync(username.Trim());
+
               db.Insert(new Data.User{
                 DiscordId = context.Member.Id,
-                LastFM = username.Trim(),
+                LastFM = fmun.Content.Name,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
               });
