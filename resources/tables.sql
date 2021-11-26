@@ -21,3 +21,12 @@ CREATE TABLE IF NOT EXISTS `plays` (
   `updated_at` DATETIME NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `guild_assignments` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `discord_id` BIGINT UNSIGNED NOT NULL,
+  `guild_id` BIGINT UNSIGNED NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT current_timestamp(),
+  `updated_at` DATETIME NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
