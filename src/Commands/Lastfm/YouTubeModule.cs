@@ -28,6 +28,12 @@ namespace Hitlady.Commands.Lastfm {
       }
     }
 
+    /// <summary>
+    /// Performs a search for an item against the YouTube API.
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="item"></param>
+    /// <returns></returns>
     public async Task Search(CommandContext context, string item) {
       var client = new HttpClient();
       NameValueCollection nvc = new NameValueCollection(){

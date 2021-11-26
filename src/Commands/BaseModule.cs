@@ -12,11 +12,23 @@ namespace Hitlady.Commands {
     public BaseModule() {
       _config = Settings.GetInstance().Config;
     }
+
+    /// <summary>
+    /// Generates a footer for use on embeds.
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="embedBuilder"></param>
     protected void EmbedFooter(CommandContext context, in DiscordEmbedBuilder embedBuilder) {
       var user = context.Message.Author;
       embedBuilder.WithFooter($"Command invoked by: {user.Username}#{user.Discriminator}", user.AvatarUrl);
     }
 
+    /// <summary>
+    /// Converts a DiscordUser to a DiscordMember.
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="user"></param>
+    /// <returns></returns>
     protected async Task<DiscordMember> UserToMemberAsync(CommandContext context, DiscordUser user) {
       return await context.Guild.GetMemberAsync(user.Id);
     }
@@ -24,7 +36,7 @@ namespace Hitlady.Commands {
     protected DiscordChannel GetBotSpam(DiscordGuild guild) => guild.GetChannel(_config.Channels.BotSpam);
 
     /// <summary>
-    /// Checks if a role is joinable or not
+    /// Checks if a role is joinable or not.
     /// </summary>
     /// <param name="role"></param>
     /// <returns></returns>
