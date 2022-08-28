@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DSharpPlus;
-using DSharpPlus.CommandsNext;
+using DSharpPlus.SlashCommands;
+using DSharpPlus.SlashCommands.EventArgs;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using Hitlady.Data;
@@ -68,7 +69,8 @@ namespace Hitlady {
       await channel.SendMessageAsync(message);
     }
 
-    internal async Task Commands_CommandExecuted(CommandsNextExtension sender, CommandExecutionEventArgs e)
-      => await Program.Logger.Info($"{e.Context.Member.Username}#{e.Context.Member.Discriminator} executed the '{e.Command.QualifiedName}' command successfully");
+    internal async Task Commands_CommandExecuted(SlashCommandsExtension sender, SlashCommandExecutedEventArgs e) {
+      await Program.Logger.Info($"{e.Context.Member.Username}#{e.Context.Member.Discriminator} executed the '{e.Context.CommandName}' command successfully");
+    }
   }
 }

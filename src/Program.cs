@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using DSharpPlus;
-using DSharpPlus.CommandsNext;
+using DSharpPlus.SlashCommands;
 using Hitlady.Data;
 using Hitlady.Utils;
 using Microsoft.Extensions.Logging;
@@ -33,7 +32,7 @@ namespace Hitlady
     /// <summary>
     /// Commands extension instance.
     /// </summary>
-    private CommandsNextExtension _commands;
+    private SlashCommandsExtension _commands;
 
     static void Main(string[] args) {
       Version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -57,10 +56,8 @@ namespace Hitlady
 
       var bot = new BotClient(_client);
 
-      _commands = _client.UseCommandsNext(new CommandsNextConfiguration {
-        StringPrefixes = new List<string> { Config.Prefix },
-      });
-      _commands.CommandExecuted += bot.Commands_CommandExecuted;
+      _commands = _client.UseSlashCommands();
+      _commands.SlashCommandExecuted += bot.Commands_CommandExecuted;
       _commands.RegisterCommands(typeof(Program).GetTypeInfo().Assembly);
 
       await _client.ConnectAsync();
