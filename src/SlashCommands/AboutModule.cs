@@ -23,10 +23,7 @@ namespace Hitlady.SlashCommands
       sb.Append($"Want to find out more about {member.Username}?\n");
       sb.Append($"Type `{prefix}about uptime`, `{prefix}about source`");
 
-      await context.CreateResponseAsync(
-        InteractionResponseType.ChannelMessageWithSource,
-        new DiscordInteractionResponseBuilder().WithTitle("title").WithContent(sb.ToString())
-      );
+      await SendMessageAsync(context, sb.ToString());
     }
 
     [SlashCommand("uptime", "Displays the amount of time the bot has been live"),]
@@ -59,12 +56,8 @@ namespace Hitlady.SlashCommands
     }
 
     [SlashCommand("source", "Gives the Github link to the source code")]
-    public async Task SourceCommand(InteractionContext context) {
-      await context.CreateResponseAsync(
-        InteractionResponseType.ChannelMessageWithSource,
-        new DiscordInteractionResponseBuilder().WithContent($"{_sourceUrl}")
-      );
-    }
+    public async Task SourceCommand(InteractionContext context)
+      => await SendMessageAsync(context, _sourceUrl);
 
     private async Task displayBotInfo(InteractionContext context) {
       var member = await UserToMemberAsync(context, context.Client.CurrentUser);

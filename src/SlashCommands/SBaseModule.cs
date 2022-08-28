@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using DSharpPlus.Entities;
@@ -112,6 +111,12 @@ namespace Hitlady.SlashCommands {
       );
     }
 
+    /// <summary>
+    /// Sends an embed message.
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="embed"></param>
+    /// <returns></returns>
     protected async Task SendMessageAsync(InteractionContext context, DiscordEmbed embed) {
       await context.CreateResponseAsync(
         DSharpPlus.InteractionResponseType.ChannelMessageWithSource,

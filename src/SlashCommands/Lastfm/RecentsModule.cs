@@ -7,7 +7,6 @@ using DSharpPlus.Entities;
 
 namespace Hitlady.SlashCommands.Lastfm {
   public class NowPlayingModule : BaseFmModule {
-    // [Command("nowplaying"), Aliases("np"), Description("Gets the current playing tack")]
     [SlashCommand("nowplaying", "Gets the current playing track")]
     public async Task NowPlayingCommand(InteractionContext context) {
       var recents = await GetRecents(context);
