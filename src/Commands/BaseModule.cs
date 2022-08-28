@@ -1,13 +1,13 @@
 using System.Data;
 using System.Threading.Tasks;
-using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
+using DSharpPlus.SlashCommands;
 using Hitlady.Data;
 using Hitlady.Utils;
 using ServiceStack.OrmLite;
 
 namespace Hitlady.Commands {
-  public class BaseModule : BaseCommandModule {
+  public class BaseModule : ApplicationCommandModule {
     protected ConfigYml _config;
     public BaseModule() {
       _config = Settings.GetInstance().Config;
@@ -18,10 +18,8 @@ namespace Hitlady.Commands {
     /// </summary>
     /// <param name="context"></param>
     /// <param name="embedBuilder"></param>
-    protected void EmbedFooter(CommandContext context, in DiscordEmbedBuilder embedBuilder) {
-      var user = context.Message.Author;
-      embedBuilder.WithFooter($"Command invoked by: {user.Username}#{user.Discriminator}", user.AvatarUrl);
-    }
+    protected void EmbedFooter(InteractionContext context, in DiscordEmbedBuilder embedBuilder)
+      => embedBuilder.WithFooter($"Command invoked by: {context.Member.Username}#{context.Member.Discriminator}", context.Member.AvatarUrl);
 
     /// <summary>
     /// Converts a DiscordUser to a DiscordMember.
@@ -29,11 +27,11 @@ namespace Hitlady.Commands {
     /// <param name="context"></param>
     /// <param name="user"></param>
     /// <returns></returns>
-    protected async Task<DiscordMember> UserToMemberAsync(CommandContext context, DiscordUser user) {
-      return await context.Guild.GetMemberAsync(user.Id);
-    }
+    protected async Task<DiscordMember> UserToMemberAsync(InteractionContext context, DiscordUser user)
+      => await context.Guild.GetMemberAsync(user.Id);
 
-    protected DiscordChannel GetBotSpam(DiscordGuild guild) => guild.GetChannel(_config.Channels.BotSpam);
+    protected DiscordChannel GetBotSpam(DiscordGuild guild)
+      => guild.GetChannel(_config.Channels.BotSpam);
 
     /// <summary>
     /// Checks if a role is joinable or not.
@@ -88,7 +86,7 @@ namespace Hitlady.Commands {
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
-    protected async Task<Data.User> GetDatabaseUser(CommandContext context) {
+    protected async Task<Data.User> GetDatabaseUser(InteractionContext context) {
       var db = await Db();
       var user = await db.SelectAsync<Data.User>(q => q.DiscordId == context.User.Id);
       db.Close();
@@ -98,6 +96,32 @@ namespace Hitlady.Commands {
       }
 
       return null;
+    }
+
+    /// <summary>
+    /// Sends a string message.
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="message"></param>
+    /// <returns></returns>
+    protected async Task SendMessageAsync(InteractionContext context, string message) {
+      await context.CreateResponseAsync(
+        DSharpPlus.InteractionResponseType.ChannelMessageWithSource,
+        new () { Content = message }
+      );
+    }
+
+    /// <summary>
+    /// Sends an embed message.
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="embed"></param>
+    /// <returns></returns>
+    protected async Task SendMessageAsync(InteractionContext context, DiscordEmbed embed) {
+      await context.CreateResponseAsync(
+        DSharpPlus.InteractionResponseType.ChannelMessageWithSource,
+        new DiscordInteractionResponseBuilder().AddEmbed(embed)
+      );
     }
 
     protected async Task<IDbConnection> Db() {

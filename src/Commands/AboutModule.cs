@@ -1,20 +1,20 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
+using DSharpPlus;
+using DSharpPlus.SlashCommands;
 using DSharpPlus.Entities;
 
 namespace Hitlady.Commands
 {
-  [Group("about"), Description("Shows info about the bot")] // this command is grouped (sub commands within about)
+  [SlashCommandGroup("about", "Gets general bot info")] // this command is grouped (sub commands within about)
   public class AboutModule : BaseModule {
     private const string _inviteLink = ""; // I'll `maybe` use this at some point?
 
-    private const string _sourceUrl = "https://gitlab.com/pazuzu156/hitlady";
+    private const string _sourceUrl = "https://github.com/pazuzu156/hitlady";
 
-    [GroupCommand] // this will be the base command method call
-    public async Task AboutCommand(CommandContext context) {
+    [SlashCommand("bot", "Shows bot's info")] // this will be the base command method call
+    public async Task AboutCommand(InteractionContext context) {
       await displayBotInfo(context);
 
       var prefix = _config.Prefix;
@@ -23,11 +23,11 @@ namespace Hitlady.Commands
       sb.Append($"Want to find out more about {member.Username}?\n");
       sb.Append($"Type `{prefix}about uptime`, `{prefix}about source`");
 
-      await context.RespondAsync(sb.ToString());
+      await SendMessageAsync(context, sb.ToString());
     }
 
-    [Command("uptime"), Description("Displays the amount of time the bot has been live")]
-    public async Task UptimeCommand(CommandContext context) {
+    [SlashCommand("uptime", "Displays the amount of time the bot has been live"),]
+    public async Task UptimeCommand(InteractionContext context) {
       var delta = DateTime.UtcNow - Program.StartTime;
       var days = delta.Days.ToString("n0");
       var hrs = delta.Hours.ToString("n0");
@@ -49,15 +49,17 @@ namespace Hitlady.Commands
       }
 
       builder.Append($"{secs} seconds ");
-      await context.RespondAsync($"Uptime: {builder.ToString()}");
+      await context.CreateResponseAsync(
+        InteractionResponseType.ChannelMessageWithSource,
+        new DiscordInteractionResponseBuilder().WithContent($"Uptime: {builder.ToString()}")
+      );
     }
 
-    [Command("source"), Description("Gives the Github link to the source code")]
-    public async Task SourceCommand(CommandContext context) {
-      await context.RespondAsync($"{_sourceUrl}");
-    }
+    [SlashCommand("source", "Gives the Github link to the source code")]
+    public async Task SourceCommand(InteractionContext context)
+      => await SendMessageAsync(context, _sourceUrl);
 
-    private async Task displayBotInfo(CommandContext context) {
+    private async Task displayBotInfo(InteractionContext context) {
       var member = await UserToMemberAsync(context, context.Client.CurrentUser);
       var rolesBuilder = new StringBuilder();
 
@@ -85,7 +87,10 @@ namespace Hitlady.Commands
       embed.AddField("Roles", rolesBuilder.ToString().TrimEnd(new char[] {',', ' '}));
 
       EmbedFooter(context, in embed);
-      await context.RespondAsync(embed: embed);
+      await context.CreateResponseAsync(
+        InteractionResponseType.ChannelMessageWithSource,
+        new DiscordInteractionResponseBuilder().AddEmbed(embed)
+      );
     }
   }
 }

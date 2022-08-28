@@ -4,24 +4,23 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
-using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
 using Newtonsoft.Json.Linq;
+using DSharpPlus.SlashCommands;
 
 namespace Hitlady.Commands.Lastfm {
   public class YouTubeModule : BaseFmModule {
     private string m_RootUrl = "https://www.googleapis.com/youtube/v3/search";
 
-    [Command("youtube"), Aliases("yt"), Description("Search for a Youtube video from either the current playing tack, or a custom query")]
-    public async Task YtCommand(CommandContext context, [RemainingText, Description("Search query")]string item) {
-      if (item != null) {
+    [SlashCommand("youtube", "Search for a Youtube video from either the current playing tack, or a custom query")]
+    public async Task YtCommand(InteractionContext context, [Option("query", "YouTube Search Query (Empty for current track)")]string item = "") {
+      if (item != "") {
         await Search(context, item);
       } else {
         var fm = await FM(context);
         var np = await fm.GetNowPlaying();
 
         if (np == null) {
-          await context.RespondAsync("You're not currently listening to anything. Try searching for something instead.");
+          await SendMessageAsync(context, "You're not currently listening to anything. Try searching for something instead.");
         } else {
           await Search(context, $"{np.ArtistName} {np.Name}");
         }
@@ -34,7 +33,7 @@ namespace Hitlady.Commands.Lastfm {
     /// <param name="context"></param>
     /// <param name="item"></param>
     /// <returns></returns>
-    public async Task Search(CommandContext context, string item) {
+    public async Task Search(InteractionContext context, string item) {
       var client = new HttpClient();
       NameValueCollection nvc = new NameValueCollection(){
         {"key", _config.YouTube.ApiKey},
@@ -55,7 +54,7 @@ namespace Hitlady.Commands.Lastfm {
         videos.Add(i);
       }
 
-      await context.RespondAsync($"YouTube search result for **{item}**:\nhttps://youtu.be/{videos[0].Id.VideoId}");
+      await SendMessageAsync(context, $"YouTube search result for **{item}**:\nhttps://youtu.be/{videos[0].Id.VideoId}");
     }
 
     public class VideoItems {
