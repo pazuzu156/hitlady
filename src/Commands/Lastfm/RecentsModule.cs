@@ -2,14 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
+using DSharpPlus.SlashCommands;
 using DSharpPlus.Entities;
 
 namespace Hitlady.Commands.Lastfm {
   public class NowPlayingModule : BaseFmModule {
-    [Command("nowplaying"), Aliases("np"), Description("Gets the current playing tack")]
-    public async Task NowPlayingCommand(CommandContext context) {
+    [SlashCommand("nowplaying", "Gets the current playing track")]
+    public async Task NowPlayingCommand(InteractionContext context) {
       var recents = await GetRecents(context);
       var np = (List<string>)recents["nowplaying"];
       var fm = await FM(context);
@@ -36,11 +35,11 @@ namespace Hitlady.Commands.Lastfm {
       embed.AddField("Recent Plays", (string)recents["recents"]);
 
       EmbedFooter(context, in embed);
-      await context.RespondAsync(embed: embed);
+      await SendMessageAsync(context, embed);
     }
 
-    [Command("recent"), Description("Gets a list of recent plays")]
-    public async Task RecentPlaysCommand(CommandContext context) {
+    [SlashCommand("recent", "Gets a list of recent plays")]
+    public async Task RecentPlaysCommand(InteractionContext context) {
       var recents = await GetRecents(context);
 
       var embed = new DiscordEmbedBuilder {
@@ -51,10 +50,10 @@ namespace Hitlady.Commands.Lastfm {
       };
 
       EmbedFooter(context, in embed);
-      await context.RespondAsync(embed: embed);
+      await SendMessageAsync(context, embed);
     }
 
-    protected async Task<Dictionary<string, object>> GetRecents(CommandContext context) {
+    protected async Task<Dictionary<string, object>> GetRecents(InteractionContext context) {
       var fm = await FM(context);
       var recentTracks = await fm.GetRecentTracks();
       var sb = new StringBuilder();

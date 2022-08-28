@@ -1,14 +1,13 @@
-using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
 using Hitlady.Utils;
 using ServiceStack.OrmLite;
 using System;
 using System.Threading.Tasks;
+using DSharpPlus.SlashCommands;
 
 namespace Hitlady.Commands.Lastfm {
   public class AccountModule : BaseModule {
-    [Command("register"), Description("Registers your LastFM esername")]
-    public async Task RegisterCommand(CommandContext context, [RemainingText, Description("LastFM Username")] string username) {
+    [SlashCommand("register", "Registers your LastFM esername")]
+    public async Task RegisterCommand(InteractionContext context, [Option("username", "Your LastFM Username")] string username) {
       try {
         var db = await Data.Connection.Connect();
         var user = await db.SelectAsync<Data.User>(q => q.LastFM == username.Trim());
@@ -29,25 +28,25 @@ namespace Hitlady.Commands.Lastfm {
                 UpdatedAt = DateTime.UtcNow
               });
 
-              await context.RespondAsync("You've successfully registered your Last FM username");
+              await SendMessageAsync(context, "You've successfully registered your Last FM username");
             } else {
-              await context.RespondAsync($"You're already registered! Need to change your username? `{Program.Config.Prefix}unregister` first, then register again");
+              await SendMessageAsync(context, $"You're already registered! Need to change your username? `{Program.Config.Prefix}unregister` first, then register again");
             }
           } else {
-            await context.RespondAsync("That LastFM username is already registered to another user!");
+            await SendMessageAsync(context, "That LastFM username is already registered to another user!");
           }
         } else {
-          await context.RespondAsync("That username wasn't found on Lastfm!");
+          await SendMessageAsync(context, "That username wasn't found on Lastfm!");
         }
 
         db.Close();
       } catch {
-        await context.RespondAsync("Couldn't register your username. Please try again later");
+        await SendMessageAsync(context, "Couldn't register your username. Please try again later");
       }
     }
 
-    [Command("unregister"), Description("Unregisters your LastFM username")]
-    public async Task UnregisterCommand(CommandContext context) {
+    [SlashCommand("unregister", "Unregisters your LastFM username")]
+    public async Task UnregisterCommand(InteractionContext context) {
       try {
         var db = await Data.Connection.Connect();
         var exp = db.From<Data.User>().Where(q => q.DiscordId == context.Member.Id);
@@ -55,14 +54,14 @@ namespace Hitlady.Commands.Lastfm {
 
         if (user.Count > 0) {
           db.Delete(exp);
-          await context.RespondAsync("You have successfully unregistered your Last FM username");
+          await SendMessageAsync(context, "You have successfully unregistered your Last FM username");
         } else {
-          await context.RespondAsync("You don't have a Last FM username registered");
+          await SendMessageAsync(context, "You don't have a Last FM username registered");
         }
 
         db.Close();
       } catch(Exception ex) {
-        await context.RespondAsync("There was an error unregistering you. Please try again later");
+        await SendMessageAsync(context, "There was an error unregistering you. Please try again later");
         Console.WriteLine(ex);
       }
     }
