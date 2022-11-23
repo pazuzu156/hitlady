@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using Hitlady.Utils;
 
@@ -9,5 +10,11 @@ namespace Hitlady.Commands.Lastfm {
 
       return new LFM(user.LastFM);
     }
+
+    protected async Task<LFM> FM(DiscordUser user)
+      => new LFM(((Data.User)await GetDatabaseUser(user)).LastFM);
+
+    protected async Task<LFM> FM(DiscordMember member)
+      => new LFM(((Data.User)await GetDatabaseUser(member)).LastFM);
   }
 }

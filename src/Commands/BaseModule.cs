@@ -86,9 +86,34 @@ namespace Hitlady.Commands {
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
-    protected async Task<Data.User> GetDatabaseUser(InteractionContext context) {
+    protected async Task<Data.User> GetDatabaseUser(InteractionContext context)
+      => await GetDatabaseUser(context.User);
+
+    /// <summary>
+    /// Gets a user from the database.
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    protected async Task<Data.User> GetDatabaseUser(DiscordUser user) {
       var db = await Db();
-      var user = await db.SelectAsync<Data.User>(q => q.DiscordId == context.User.Id);
+      var dbu = await db.SelectAsync<Data.User>(q => q.DiscordId == user.Id);
+      db.Close();
+
+      if (dbu.Count > 0) {
+        return dbu[0];
+      }
+
+      return null;
+    }
+
+    /// <summary>
+    /// Gets a user from the database.
+    /// </summary>
+    /// <param name="member"></param>
+    /// <returns></returns>
+    protected async Task<Data.User> GetDatabaseUser(DiscordMember member) {
+      var db = await Db();
+      var user = await db.SelectAsync<Data.User>(q => q.DiscordId == member.Id);
       db.Close();
 
       if (user.Count > 0) {
@@ -124,6 +149,10 @@ namespace Hitlady.Commands {
       );
     }
 
+    /// <summary>
+    /// Creates a database connection and returns it's instance.
+    /// </summary>
+    /// <returns></returns>
     protected async Task<IDbConnection> Db() {
       return await Connection.Connect();
     }

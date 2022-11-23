@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using IF.Lastfm.Core.Api;
+using IF.Lastfm.Core.Api.Enums;
 using IF.Lastfm.Core.Api.Helpers;
 using IF.Lastfm.Core.Objects;
 
@@ -12,8 +13,9 @@ namespace Hitlady.Utils {
     public LFM(string lastfmUsername) {
       var fmConfig = Program.Config.Lastfm;
       m_LastfmUsername = lastfmUsername;
+      var la = new LastAuth(fmConfig.ApiKey, fmConfig.ApiSecret);
 
-      _client = new LastfmClient(fmConfig.ApiKey, fmConfig.ApiSecret);
+      _client = new LastfmClient(la);
     }
 
     public LastfmClient GetClient() {
@@ -32,6 +34,16 @@ namespace Hitlady.Utils {
       } catch {}
 
       return exists;
+    }
+
+    public async Task<LastResponse<LastUser>> GetUser()
+      => await _client.User.GetInfoAsync(m_LastfmUsername);
+
+    public async Task<PageResponse<LastArtist>> GetTopArtists(int limit = 20){
+      var a = await _client.User.GetTopArtists(m_LastfmUsername, LastStatsTimeSpan.Overall);
+      return null;
+
+      // var artists = await _client.Library.GetArtists(m_LastfmUsername, DateTime)
     }
 
     public async Task<LastTrack> GetNowPlaying() {
